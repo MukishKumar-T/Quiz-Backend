@@ -20,5 +20,5 @@ public interface QuizAttemptRepository extends JpaRepository<QuizAttempt, Intege
             "FROM QuizAttempt qa GROUP BY qa.user.userName ORDER BY SUM(qa.score) DESC")
     List<LeaderboardDTO> getLeaderboard();
 
-
+    List<QuizAttempt> findByUser_UserName(String userName);
 }

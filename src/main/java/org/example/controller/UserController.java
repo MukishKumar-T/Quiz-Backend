@@ -27,5 +27,12 @@ public class UserController {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
+    @GetMapping("/{userName}")
+    public ResponseEntity<User> getUserByUserName(@PathVariable String userName) {
+        return userRepository.findByUserName(userName)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
 
