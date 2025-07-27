@@ -19,6 +19,9 @@ public interface QuizAttemptRepository extends JpaRepository<QuizAttempt, Intege
     @Query("SELECT new org.example.model.LeaderboardDTO(qa.user.userName, SUM(qa.score), COUNT(qa)) " +
             "FROM QuizAttempt qa GROUP BY qa.user.userName ORDER BY SUM(qa.score) DESC")
     List<LeaderboardDTO> getLeaderboard();
+    
+    @Query("SELECT AVG(qa.score) FROM QuizAttempt qa WHERE qa.quiz.id = :quizId")
+    Double findAverageScoreByQuizId(Integer quizId);
 
     List<QuizAttempt> findByUser_UserName(String userName);
 }

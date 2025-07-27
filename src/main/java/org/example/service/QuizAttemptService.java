@@ -31,9 +31,22 @@ public class QuizAttemptService {
     }
 
     public List<QuizAttemptDTO> getQuizAttemptsByUser(String userName) {
-        return quizAttemptRepo.findByUser_UserName(userName)
-            .stream()
-            .map(a -> new QuizAttemptDTO(a.getId(), a.getScore(), a.getQuiz() != null ? a.getQuiz().getTitle() : "-"))
+        List<QuizAttempt> attempts = quizAttemptRepo.findByUser_UserName(userName);
+        
+        return attempts.stream()
+            .map(a -> {
+                Double averageScore = a.getQuiz() != null ? 
+                    quizAttemptRepo.findAverageScoreByQuizId(a.getQuiz().getId()) : 
+                    null;
+                    
+                return new QuizAttemptDTO(
+                    a.getId(), 
+                    a.getScore(), 
+                    a.getQuiz() != null ? a.getQuiz().getTitle() : "-",
+                    a.getQuiz() != null ? a.getQuiz().getCategory() : null,
+                    averageScore != null ? averageScore.intValue() : null
+                );
+            })
             .collect(Collectors.toList());
     }
 
