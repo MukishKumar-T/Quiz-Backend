@@ -27,6 +27,12 @@ public class Quiz {
     @JsonManagedReference("quiz-quizattempt")
     private List<QuizAttempt> quizAttempts;
 
+    private boolean approved = false;
+    
+    @ManyToOne
+    @JoinColumn(name = "contributor_id")
+    private User contributor;
+
     public Integer getId() {
         return id;
     }

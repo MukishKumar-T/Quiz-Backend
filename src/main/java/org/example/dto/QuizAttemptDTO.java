@@ -6,13 +6,15 @@ public class QuizAttemptDTO {
     private String quizTitle;
     private String quizCategory;
     private Integer averageScore;
+    private Integer quizId;
 
-    public QuizAttemptDTO(int id, int score, String quizTitle, String quizCategory, Integer averageScore) {
+    public QuizAttemptDTO(int id, int score, String quizTitle, String quizCategory, Integer averageScore, Integer quizId) {
         this.id = id;
         this.score = score;
         this.quizTitle = quizTitle;
         this.quizCategory = quizCategory != null ? quizCategory : "General";
         this.averageScore = averageScore;
+        this.quizId = quizId;
     }
 
     public int getId() {
@@ -53,5 +55,13 @@ public class QuizAttemptDTO {
 
     public void setAverageScore(Integer averageScore) {
         this.averageScore = averageScore;
+    }
+
+    public Integer getQuizId() {
+        return quizId;
+    }
+
+    public void setQuizId(Integer quizId) {
+        this.quizId = quizId;
     }
 }

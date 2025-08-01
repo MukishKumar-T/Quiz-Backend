@@ -44,7 +44,8 @@ public class QuizAttemptService {
                     a.getScore(), 
                     a.getQuiz() != null ? a.getQuiz().getTitle() : "-",
                     a.getQuiz() != null ? a.getQuiz().getCategory() : null,
-                    averageScore != null ? averageScore.intValue() : null
+                    averageScore != null ? averageScore.intValue() : null,
+                    a.getQuiz() != null ? a.getQuiz().getId() : null
                 );
             })
             .collect(Collectors.toList());

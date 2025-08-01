@@ -14,6 +14,9 @@ public class QuizDTO {
     private Integer id;
     private String title;
     private String category;
+    private boolean approved;
+    private Long contributorId;
+    private String contributorName;
     private List<Question> questions;
 
     public List<Question> getQuestions() {
