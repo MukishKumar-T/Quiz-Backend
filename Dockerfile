@@ -1,19 +1,18 @@
-# Use official OpenJDK 17 image as base
-FROM eclipse-temurin:17-jdk-jammy as builder
+# Use Maven image for building
+FROM maven:3.9.6-eclipse-temurin-17 as builder
 
 # Set working directory
 WORKDIR /app
 
-# Copy Maven wrapper and pom.xml
-COPY mvnw .
-COPY .mvn .mvn
+# Copy pom.xml and download dependencies first (for better layer caching)
 COPY pom.xml .
+RUN mvn dependency:go-offline -B
 
 # Copy source code
 COPY src ./src
 
 # Build the application
-RUN --mount=type=cache,target=/root/.m2 ./mvnw clean package -DskipTests
+RUN mvn clean package -DskipTests
 
 # Use a smaller runtime image
 FROM eclipse-temurin:17-jre-jammy
